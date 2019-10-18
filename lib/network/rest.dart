@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:mapallo/util/config.dart';
 import 'package:http/http.dart' as http;
+import 'package:mapallo/util/session_data.dart';
 
 enum RESTMethod { GET, POST, DELETE }
 
@@ -19,7 +20,7 @@ abstract class REST {
     return {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-//      'token': SessionData.getSessionToken()
+      'token': SessionData.getSessionToken()
     };
   }
 

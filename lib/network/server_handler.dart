@@ -33,7 +33,7 @@ abstract class ServerHandler {
 
   static Future<Map<String, dynamic>> _login(Map params) async {
     return REST
-        .post('/login/', params);
+        .post('/login.json', params);
   }
 
   // #########
