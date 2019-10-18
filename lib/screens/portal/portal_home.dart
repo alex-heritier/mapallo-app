@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mapallo/network/server_handler.dart';
 
 class PortalHome extends StatefulWidget {
   @override
@@ -9,7 +10,8 @@ class PortalHome extends StatefulWidget {
 }
 
 class _PortalHomeState extends State<PortalHome> {
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
+  Set<Marker> _markers = Set<Marker>();
 
   static final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
@@ -22,6 +24,33 @@ class _PortalHomeState extends State<PortalHome> {
       tilt: 59.440717697143555,
       zoom: 19.151926040649414);
 
+  @override
+  void initState() {
+    super.initState();
+    _loadPins();
+  }
+
+  void _loadPins() async {
+    final response = await ServerHandler.getPins();
+    if (response['req_stat'] == 100)
+      _setMarkers(response['pins']);
+    else
+      print("Failed to load pins");
+  }
+
+  void _setMarkers(List pins) {
+    Set newMarkers = pins.map((pin) {
+      return Marker(
+        markerId: MarkerId(pin['pinnable']['title']),
+        icon: BitmapDescriptor.defaultMarker,
+        position: LatLng(pin['lat'], pin['lng']),
+        infoWindow: InfoWindow(title: pin['pinnable']['title']),
+        onTap: () => print(pin['pinnable']['title']),
+      );
+    }).toSet();
+    setState(() => _markers = newMarkers);
+  }
+
   Future<void> _goToTheLake() async {
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
@@ -33,6 +62,7 @@ class _PortalHomeState extends State<PortalHome> {
       mapType: MapType.normal,
       zoomGesturesEnabled: true,
       initialCameraPosition: _kGooglePlex,
+      markers: _markers,
       onMapCreated: (GoogleMapController controller) {
         _controller.complete(controller);
       },
@@ -40,7 +70,10 @@ class _PortalHomeState extends State<PortalHome> {
         showDialog(
             context: context,
             builder: (BuildContext ctx) {
-              return Dialog(child: Text("HELLO WORLD"));
+              return Dialog(
+                  child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text('You clicked at ${latLng.toString()}!')));
             });
       },
     );

@@ -61,4 +61,11 @@ abstract class ServerHandler {
 // #########
 // ## GET ##
 // #########
+  static Future<Map<String, dynamic>> getPosts() async {
+    return REST.get('/posts.json');
+  }
+
+  static Future<Map<String, dynamic>> getPins() async {
+    return REST.get('/pins.json');
+  }
 }
