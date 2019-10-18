@@ -32,11 +32,22 @@ abstract class ServerHandler {
   }
 
   static Future<Map<String, dynamic>> _login(Map params) async {
-    return REST
-        .post('/login.json', params);
+    return REST.post('/login.json', params);
   }
 
-  // #########
-  // ## GET ##
-  // #########
+  static Future<Map<String, dynamic>> signup(
+      String username, String password) async {
+    final params = {
+      'username': username,
+      'password': password,
+      'device_uid': Util.getDeviceID(),
+      'brand': Util.getDeviceBrand(),
+      'model': '${Util.getDeviceBrand()}-${Util.getDeviceModel()}'
+    };
+    return REST.post('/signup.json', params);
+  }
+
+// #########
+// ## GET ##
+// #########
 }

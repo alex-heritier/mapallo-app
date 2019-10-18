@@ -20,8 +20,8 @@ abstract class Config {
       [ANDROID_LOCALHOST, IOS_LOCALHOST].contains(host);
 
   static String getDefaultHost() {
-//    return getPlatformLocalhost();
-    return DEV_HOST;
+    return getPlatformLocalhost();
+//    return DEV_HOST;
   }
 
   static String getHost() => _currentHost;
