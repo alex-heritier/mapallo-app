@@ -21,6 +21,7 @@ class _SignupState extends State<Signup> {
   String _username;
   String _password;
 
+
   void _signup(String username, String password) async {
     final response = await ServerHandler.signup(_username, _password);
     print(response);

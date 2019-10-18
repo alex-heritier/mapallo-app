@@ -1,3 +1,4 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapallo/network/rest.dart';
 import 'package:mapallo/util/util.dart';
 
@@ -45,6 +46,16 @@ abstract class ServerHandler {
       'model': '${Util.getDeviceBrand()}-${Util.getDeviceModel()}'
     };
     return REST.post('/signup.json', params);
+  }
+
+  static Future<Map<String, dynamic>> createPost(
+      String title, String text, LatLng latLng) async {
+    final params = {
+      'title': title,
+      'text': text,
+      'lat_lng': {'lat': latLng.latitude, 'lng': latLng.longitude},
+    };
+    return REST.post('/posts.json', params);
   }
 
 // #########

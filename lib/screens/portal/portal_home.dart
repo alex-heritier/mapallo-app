@@ -36,7 +36,15 @@ class _PortalHomeState extends State<PortalHome> {
       onMapCreated: (GoogleMapController controller) {
         _controller.complete(controller);
       },
+      onTap: (LatLng latLng) {
+        showDialog(
+            context: context,
+            builder: (BuildContext ctx) {
+              return Dialog(child: Text("HELLO WORLD"));
+            });
+      },
     );
+
     return Scaffold(
       body: body,
       floatingActionButton: FloatingActionButton.extended(
