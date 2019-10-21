@@ -27,10 +27,10 @@ class _LoginState extends State<Login> {
     final response = await ServerHandler.credentialsLogin(_username, _password);
     print(response);
 
-    int reqstat = response['req_stat'];
+    int reqstat = response.reqStat;
     if (reqstat == 100) {
-      SessionData.token = response['token'];
-      SessionData.user = response['user'];
+      SessionData.token = response.token;
+      SessionData.user = response.user;
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (ctx) => Portal()));
     }

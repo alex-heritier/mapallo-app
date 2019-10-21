@@ -1,20 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mapallo/models/post.dart';
 import 'package:mapallo/values/style.dart';
 
-class Post extends StatelessWidget {
-  final Map<String, dynamic> _post;
+class PostView extends StatelessWidget {
+  final Post _post;
 
-  Post([this._post]);
+  PostView([this._post]);
 
   @override
   Widget build(BuildContext context) {
     print(_post);
 
-    final title = Text(_post['title'],
+    final title = Text(_post.title,
         style: TextStyle(color: Style.PRIMARY, fontWeight: FontWeight.bold));
-    final text = Text(_post['text'], style: TextStyle(color: Style.BLACK));
-    final author = Text('By @${_post['user']['username']}',
+    final text = Text(_post.text, style: TextStyle(color: Style.BLACK));
+    final author = Text('By @${_post.user.username}',
         style: TextStyle(color: Style.GREY, fontSize: 12));
 
     final body = Column(

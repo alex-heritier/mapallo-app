@@ -21,15 +21,14 @@ class _SignupState extends State<Signup> {
   String _username;
   String _password;
 
-
   void _signup(String username, String password) async {
     final response = await ServerHandler.signup(_username, _password);
     print(response);
 
-    int reqstat = response['req_stat'];
+    int reqstat = response.reqStat;
     if (reqstat == 100) {
-      SessionData.token = response['token'];
-      SessionData.user = response['user'];
+      SessionData.token = response.token;
+      SessionData.user = response.user;
       Navigator.of(context).pop(true);
     } else
       Navigator.of(context).pop(false);

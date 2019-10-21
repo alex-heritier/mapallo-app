@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mapallo/models/pin.dart';
+import 'package:mapallo/models/post.dart';
 import 'package:mapallo/network/server_handler.dart';
 
 class PortalHome extends StatefulWidget {
@@ -32,20 +34,22 @@ class _PortalHomeState extends State<PortalHome> {
 
   void _loadPins() async {
     final response = await ServerHandler.getPins();
-    if (response['req_stat'] == 100)
-      _setMarkers(response['pins']);
+    if (response.reqStat == 100)
+      _setMarkers(response.pins);
     else
       print("Failed to load pins");
   }
 
-  void _setMarkers(List pins) {
+  void _setMarkers(List<Pin> pins) {
     Set newMarkers = pins.map((pin) {
+      Post post = Post.fromJson(pin.pinnable);
+
       return Marker(
-        markerId: MarkerId(pin['pinnable']['title']),
+        markerId: MarkerId(post.title),
         icon: BitmapDescriptor.defaultMarker,
-        position: LatLng(pin['lat'], pin['lng']),
-        infoWindow: InfoWindow(title: pin['pinnable']['title']),
-        onTap: () => print(pin['pinnable']['title']),
+        position: LatLng(pin.lat, pin.lng),
+        infoWindow: InfoWindow(title: post.title),
+        onTap: () => print(post.title),
       );
     }).toSet();
     setState(() => _markers = newMarkers);

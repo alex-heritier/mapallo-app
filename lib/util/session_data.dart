@@ -1,7 +1,9 @@
+import 'package:mapallo/models/user.dart';
+
 abstract class SessionData {
   static String token;
-  static Map<String, dynamic> user;
+  static User user;
 
   static String getSessionToken() => token;
-  static Map<String, dynamic> getUser() => user;
+  static User getUser() => user;
 }

@@ -36,7 +36,7 @@ class _PortalUploadState extends State<PortalUpload> {
 
   void _createPost(String title, String text, LatLng latLng) async {
     final response = await ServerHandler.createPost(title, text, latLng);
-    if (response['req_stat'] == 100)
+    if (response.reqStat == 100)
       print("Post created successfully!");
     else
       print("There was an error.");
