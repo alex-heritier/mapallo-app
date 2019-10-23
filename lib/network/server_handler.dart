@@ -1,9 +1,9 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mapallo/models/responses/base_response.dart';
 import 'package:mapallo/models/responses/get_pins_response.dart';
 import 'package:mapallo/models/responses/get_posts_response.dart';
 import 'package:mapallo/models/responses/login_response.dart';
 import 'package:mapallo/models/responses/signup_response.dart';
+import 'package:mapallo/models/responses/simple_response.dart';
 import 'package:mapallo/network/rest.dart';
 import 'package:mapallo/util/util.dart';
 
@@ -46,7 +46,7 @@ abstract class ServerHandler {
         .then((data) => SignupResponse.fromJson(data));
   }
 
-  static Future<BaseResponse> createPost(
+  static Future<SimpleResponse> createPost(
       String title, String text, LatLng latLng) async {
     final params = {
       'title': title,
@@ -54,7 +54,7 @@ abstract class ServerHandler {
       'lat_lng': {'lat': latLng.latitude, 'lng': latLng.longitude},
     };
     return REST.post('/posts.json', params)
-        .then((data) => BaseResponse.fromJson(data));
+        .then((data) => SimpleResponse.fromJson(data));
   }
 
 // #########
