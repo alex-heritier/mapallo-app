@@ -20,12 +20,6 @@ class _PortalHomeState extends State<PortalHome> {
     zoom: 10,
   );
 
-  static final CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
-
   @override
   void initState() {
     super.initState();
@@ -55,11 +49,6 @@ class _PortalHomeState extends State<PortalHome> {
     setState(() => _markers = newMarkers);
   }
 
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-  }
-
   @override
   Widget build(BuildContext context) {
     final body = GoogleMap(
@@ -82,13 +71,6 @@ class _PortalHomeState extends State<PortalHome> {
       },
     );
 
-    return Scaffold(
-      body: body,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: Text('To the lake!'),
-        icon: Icon(Icons.directions_boat),
-      ),
-    );
+    return Scaffold(body: body);
   }
 }

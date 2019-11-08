@@ -17,6 +17,7 @@ class _PortalUploadState extends State<PortalUpload> {
   LatLng _postLatLng;
 
   void _onLocationSelect(LocationPickerController lpc, LatLng latLng) {
+    print(latLng);
     lpc.clearMarkers();
     lpc.addMarker(Marker(
         position: latLng,
