@@ -8,6 +8,6 @@ class PortalSettings extends StatefulWidget {
 class _PortalSettingsState extends State<PortalSettings> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("PORTAL SETTINGS"));
+    return Center(child: Text("SETTINGS"));
   }
 }
