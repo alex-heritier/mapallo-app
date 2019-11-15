@@ -16,6 +16,8 @@ class _PortalUploadState extends State<PortalUpload> {
   String _postText;
   LatLng _postLatLng;
 
+  bool _isUploading = false;
+
   void _onLocationSelect(LocationPickerController lpc, LatLng latLng) {
     print(latLng);
     lpc.clearMarkers();
@@ -36,10 +38,31 @@ class _PortalUploadState extends State<PortalUpload> {
   }
 
   void _createPost(String title, String text, LatLng latLng) async {
+    setState(() => _isUploading = true);
+
     final response = await ServerHandler.createPost(title, text, latLng);
-    if (response.reqStat == 100)
+    if (response.reqStat == 100) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Success!'),
+            content: Text('Your post was created.'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Ok'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      setState(() => _isUploading = false);
       print("Post created successfully!");
-    else
+    } else
       print("There was an error.");
   }
 
@@ -81,10 +104,14 @@ class _PortalUploadState extends State<PortalUpload> {
       width: 400,
     );
 
-    final createButton = RaisedButton(
-        child: Text("Post", style: TextStyle(color: Style.WHITE)),
-        onPressed: _submit,
-        color: Style.PRIMARY);
+    final createButton = Padding(
+        padding: EdgeInsets.only(top: 20),
+        child: _isUploading
+            ? CircularProgressIndicator()
+            : RaisedButton(
+                child: Text("Post", style: TextStyle(color: Style.WHITE)),
+                onPressed: _submit,
+                color: Style.PRIMARY));
 
     return Padding(
       padding: EdgeInsets.all(14),

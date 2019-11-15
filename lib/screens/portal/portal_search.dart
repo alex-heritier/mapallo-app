@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mapallo/models/post.dart';
 import 'package:mapallo/network/server_handler.dart';
 import 'package:mapallo/screens/portal/widgets/post_view.dart';
+import 'package:mapallo/values/style.dart';
 
 class PortalSearch extends StatefulWidget {
   @override
@@ -9,6 +10,17 @@ class PortalSearch extends StatefulWidget {
 }
 
 class _PortalSearchState extends State<PortalSearch> {
+  final List<Map<String, dynamic>> _filters = [
+    {'icon': Icons.live_tv, 'text': "IGTV"},
+    {'icon': Icons.shopping_basket, 'text': "Shop"},
+    {'text': "Animals"},
+    {'text': "Decor"},
+    {'text': "Style"},
+    {'text': "Travel"},
+    {'text': "Science & Tech"},
+    {'text': "Gaming"}
+  ];
+
   List<Post> _posts = [];
 
   @override
@@ -25,13 +37,52 @@ class _PortalSearchState extends State<PortalSearch> {
       print("Error loading posts");
   }
 
+  void _onFilterSelected(String filter) {
+    print('Filtering by $filter');
+  }
+
   @override
   Widget build(BuildContext context) {
-    final posts = ListView.builder(
-      itemCount: _posts.length,
-      itemBuilder: (ctx, index) => PostView(_posts[index]),
-    );
+    final filters = SizedBox(
+        height: 40,
+        child: Center(
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: _filters.map((Map<String, dynamic> filter) {
+              final IconData icon = filter['icon'] ?? null;
+              final String text = filter['text'];
 
-    return posts;
+              return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 6),
+                  child: RaisedButton(
+                    color: Style.WHITE,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(4),
+                        side: BorderSide(color: Colors.grey.withAlpha(0x88))),
+                    elevation: 0,
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          icon == null ? Container() : Icon(icon, size: 20),
+                          SizedBox(width: 4),
+                          Text(text, style: TextStyle(color: Style.BLACK))
+                        ]),
+                    onPressed: () => _onFilterSelected(text),
+                  ));
+            }).toList(),
+          ),
+        ));
+
+    final posts = _posts.length == 0
+        ? Center(child: CircularProgressIndicator())
+        : Flexible(
+            child: ListView.builder(
+            itemCount: _posts.length,
+            itemBuilder: (ctx, index) => PostView(_posts[index]),
+          ));
+
+    final body = Column(children: <Widget>[filters, posts]);
+
+    return body;
   }
 }
