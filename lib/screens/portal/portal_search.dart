@@ -81,7 +81,11 @@ class _PortalSearchState extends State<PortalSearch> {
             itemBuilder: (ctx, index) => PostView(_posts[index]),
           ));
 
-    final body = Column(children: <Widget>[filters, posts]);
+    final body = Column(children: <Widget>[
+      SizedBox(height: 30),
+      filters,
+      posts,
+    ]);
 
     return body;
   }

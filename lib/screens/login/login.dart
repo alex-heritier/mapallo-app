@@ -22,10 +22,24 @@ class _LoginState extends State<Login> {
 
   String _username;
   String _password;
+  bool _isLoggingIn = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // TODO FOR DEBUGGING ONLY
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _login('ilovetravel', 'asdf'));
+  }
 
   void _login(String username, String password) async {
-    final response = await ServerHandler.credentialsLogin(_username, _password);
+    setState(() => _isLoggingIn = true);
+
+    final response = await ServerHandler.credentialsLogin(username, password);
     print(response);
+
+    setState(() => _isLoggingIn = false);
 
     int reqstat = response.reqStat;
     if (reqstat == 100) {
@@ -60,14 +74,12 @@ class _LoginState extends State<Login> {
         keyboardType: TextInputType.text,
         decoration: InputDecoration(hintText: 'Username'),
         onSaved: (val) => _username = val,
-        initialValue: 'ilovetravel',
       ),
       TextFormField(
         keyboardType: TextInputType.text,
         obscureText: true,
         decoration: InputDecoration(hintText: 'Password'),
         onSaved: (val) => _password = val,
-        initialValue: 'asdf',
       )
     ];
 
@@ -79,6 +91,18 @@ class _LoginState extends State<Login> {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: formChildren)));
+
+    final loginButton = _isLoggingIn
+        ? CircularProgressIndicator()
+        : RaisedButton(
+            child: Text("Login", style: TextStyle(color: Style.WHITE)),
+            onPressed: _submit,
+            color: Style.PRIMARY);
+
+    final registerButton = RaisedButton(
+        child: Text("New User?", style: TextStyle(color: Style.BLACK)),
+        onPressed: _isLoggingIn ? null : _register,
+        color: Style.WHITE);
 
     return Scaffold(
       body: SafeArea(
@@ -92,14 +116,8 @@ class _LoginState extends State<Login> {
               child: form,
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
             ),
-            RaisedButton(
-                child: Text("Login", style: TextStyle(color: Style.WHITE)),
-                onPressed: _submit,
-                color: Style.PRIMARY),
-            RaisedButton(
-                child: Text("New User?", style: TextStyle(color: Style.BLACK)),
-                onPressed: _register,
-                color: Style.WHITE),
+            loginButton,
+            registerButton,
           ],
         ),
       ),
