@@ -33,8 +33,7 @@ abstract class ServerHandler {
         .then((data) => LoginResponse.fromJson(data));
   }
 
-  static Future<SignupResponse> signup(
-      String username, String password) async {
+  static Future<SignupResponse> signup(String username, String password) async {
     final params = {
       'username': username,
       'password': password,
@@ -42,18 +41,21 @@ abstract class ServerHandler {
       'brand': Util.getDeviceBrand(),
       'model': '${Util.getDeviceBrand()}-${Util.getDeviceModel()}'
     };
-    return REST.post('/signup.json', params)
+    return REST
+        .post('/signup.json', params)
         .then((data) => SignupResponse.fromJson(data));
   }
 
   static Future<SimpleResponse> createPost(
-      String title, String text, LatLng latLng) async {
+      String title, String text, String image64, LatLng latLng) async {
     final params = {
       'title': title,
       'text': text,
+      'image_64': image64,
       'lat_lng': {'lat': latLng.latitude, 'lng': latLng.longitude},
     };
-    return REST.post('/posts.json', params)
+    return REST
+        .post('/posts.json', params)
         .then((data) => SimpleResponse.fromJson(data));
   }
 
@@ -61,12 +63,14 @@ abstract class ServerHandler {
 // ## GET ##
 // #########
   static Future<GetPostsResponse> getPosts() async {
-    return REST.get('/posts.json')
+    return REST
+        .get('/posts.json')
         .then((data) => GetPostsResponse.fromJson(data));
   }
 
   static Future<GetPinsResponse> getPins() async {
-    return REST.get('/pins.json')
+    return REST
+        .get('/pins.json')
         .then((data) => GetPinsResponse.fromJson(data));
   }
 }

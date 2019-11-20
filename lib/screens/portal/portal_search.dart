@@ -49,22 +49,22 @@ class _PortalSearchState extends State<PortalSearch> {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: _filters.map((Map<String, dynamic> filter) {
-              final IconData icon = filter['icon'] ?? null;
+              final IconData icon = filter['icon'];
               final String text = filter['text'];
 
               return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 6),
+                  padding: EdgeInsets.symmetric(horizontal: 2, vertical: 6),
                   child: RaisedButton(
                     color: Style.WHITE,
                     shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(4),
+                        borderRadius: new BorderRadius.circular(60),
                         side: BorderSide(color: Colors.grey.withAlpha(0x88))),
                     elevation: 0,
                     child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           icon == null ? Container() : Icon(icon, size: 20),
-                          SizedBox(width: 4),
+                          icon == null ? Container() : SizedBox(width: 4),
                           Text(text, style: TextStyle(color: Style.BLACK))
                         ]),
                     onPressed: () => _onFilterSelected(text),

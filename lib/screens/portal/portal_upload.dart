@@ -1,5 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mapallo/network/server_handler.dart';
 import 'package:mapallo/screens/widgets/location_picker.dart';
 import 'package:mapallo/values/style.dart';
@@ -12,6 +16,7 @@ class PortalUpload extends StatefulWidget {
 class _PortalUploadState extends State<PortalUpload> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  File _image;
   String _postTitle;
   String _postText;
   LatLng _postLatLng;
@@ -30,17 +35,27 @@ class _PortalUploadState extends State<PortalUpload> {
 
   void _submit() {
     final form = _formKey.currentState;
-    if (form.validate() && _postLatLng != null) {
+    if (form.validate() && _image != null && _postLatLng != null) {
       form.save();
-      _createPost(_postTitle.trim(), _postText.trim(), _postLatLng);
-    } else
+      _createPost(_postTitle.trim(), _postText.trim(), _image, _postLatLng);
+    } else {
       print('Form not valid');
+      _showError('Missing required info.');
+    }
   }
 
-  void _createPost(String title, String text, LatLng latLng) async {
+  Future<String> _fileToBase64(File file) async {
+    Future<List> list = file.readAsBytes();
+    return list.then((bytes) => base64Encode(bytes));
+  }
+
+  void _createPost(String title, String text, File image, LatLng latLng) async {
     setState(() => _isUploading = true);
 
-    final response = await ServerHandler.createPost(title, text, latLng);
+    final String image64 = await _fileToBase64(image);
+
+    final response =
+        await ServerHandler.createPost(title, text, image64, latLng);
     if (response.reqStat == 100) {
       showDialog<void>(
         context: context,
@@ -62,8 +77,27 @@ class _PortalUploadState extends State<PortalUpload> {
       );
       setState(() => _isUploading = false);
       print("Post created successfully!");
-    } else
+    } else {
       print("There was an error.");
+      _showError("There was an error.");
+    }
+  }
+
+  void _showError(msg) {
+    final snackBar = SnackBar(
+      content: Text(msg),
+      duration: Duration(seconds: 2),
+    );
+    // Find the Scaffold in the widget tree and use it to show a SnackBar.
+    Scaffold.of(context).showSnackBar(snackBar);
+  }
+
+  void _onImagePickerClick() async {
+    final File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    print(await _fileToBase64(image));
+
+    if (image != null) setState(() => _image = image);
   }
 
   @override
@@ -89,6 +123,14 @@ class _PortalUploadState extends State<PortalUpload> {
       )
     ];
 
+    final imagePicker = InkWell(
+        onTap: _onImagePickerClick,
+        child: SizedBox(
+            width: 80,
+            height: 80,
+            child:
+                _image == null ? Icon(Icons.file_upload) : Image.file(_image)));
+
     final Form form = Form(
         key: _formKey,
         autovalidate: true,
@@ -97,6 +139,10 @@ class _PortalUploadState extends State<PortalUpload> {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: formChildren)));
+
+    final topSection = Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[imagePicker, Expanded(child: form)]);
 
     final locationPicker = SizedBox(
       child: LocationPicker(onSelectCallback: _onLocationSelect),
@@ -115,8 +161,8 @@ class _PortalUploadState extends State<PortalUpload> {
 
     return Padding(
       padding: EdgeInsets.all(14),
-      child:
-          Column(children: <Widget>[title, form, locationPicker, createButton]),
+      child: Column(
+          children: <Widget>[title, topSection, locationPicker, createButton]),
     );
   }
 }
