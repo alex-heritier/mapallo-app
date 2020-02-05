@@ -1,9 +1,9 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mapallo/models/responses/get_pins_response.dart';
-import 'package:mapallo/models/responses/get_posts_response.dart';
-import 'package:mapallo/models/responses/login_response.dart';
-import 'package:mapallo/models/responses/signup_response.dart';
-import 'package:mapallo/models/responses/simple_response.dart';
+import 'package:mapallo/model/response/get_pins_response.dart';
+import 'package:mapallo/model/response/get_posts_response.dart';
+import 'package:mapallo/model/response/login_response.dart';
+import 'package:mapallo/model/response/signup_response.dart';
+import 'package:mapallo/model/response/simple_response.dart';
 import 'package:mapallo/network/rest.dart';
 import 'package:mapallo/util/util.dart';
 

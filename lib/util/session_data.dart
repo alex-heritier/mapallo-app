@@ -1,4 +1,4 @@
-import 'package:mapallo/models/user.dart';
+import 'package:mapallo/model/user.dart';
 
 abstract class SessionData {
   static String token;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mapallo/screens/login/login.dart';
+import 'package:mapallo/screen/login/login.dart';
 
 void main() => runApp(MyApp());
 

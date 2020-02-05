@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mapallo/models/base_model.dart';
-import 'package:mapallo/models/pin.dart';
-import 'package:mapallo/models/user.dart';
+import 'package:mapallo/model/base_model.dart';
+import 'package:mapallo/model/pin.dart';
+import 'package:mapallo/model/user.dart';
 
 part 'post.g.dart';
 

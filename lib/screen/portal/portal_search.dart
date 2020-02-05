@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mapallo/models/post.dart';
+import 'package:mapallo/model/post.dart';
 import 'package:mapallo/network/server_handler.dart';
-import 'package:mapallo/screens/portal/widgets/post_view.dart';
-import 'package:mapallo/values/style.dart';
+import 'package:mapallo/screen/portal/widget/post_view.dart';
+import 'package:mapallo/value/style.dart';
 
 class PortalSearch extends StatefulWidget {
   @override

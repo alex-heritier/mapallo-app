@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mapallo/network/server_handler.dart';
-import 'package:mapallo/screens/portal/portal.dart';
-import 'package:mapallo/screens/signup/signup.dart';
+import 'package:mapallo/screen/portal/portal.dart';
+import 'package:mapallo/screen/signup/signup.dart';
 import 'package:mapallo/util/session_data.dart';
-import 'package:mapallo/values/style.dart';
+import 'package:mapallo/value/style.dart';
 
 class Login extends StatefulWidget {
   Login({Key key})

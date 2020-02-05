@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mapallo/network/server_handler.dart';
-import 'package:mapallo/screens/widgets/location_picker.dart';
-import 'package:mapallo/values/style.dart';
+import 'package:mapallo/widget/location_picker.dart';
+import 'package:mapallo/value/style.dart';
 
 class PortalUpload extends StatefulWidget {
   @override

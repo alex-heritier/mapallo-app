@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mapallo/network/server_handler.dart';
 import 'package:mapallo/util/session_data.dart';
-import 'package:mapallo/values/style.dart';
+import 'package:mapallo/value/style.dart';
 
 class Signup extends StatefulWidget {
   Signup({Key key})

@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mapallo/models/pin.dart';
-import 'package:mapallo/models/post.dart';
+import 'package:mapallo/model/pin.dart';
+import 'package:mapallo/model/post.dart';
 import 'package:mapallo/network/server_handler.dart';
 
 class PortalHome extends StatefulWidget {

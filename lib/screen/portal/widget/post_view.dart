@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mapallo/models/post.dart';
-import 'package:mapallo/values/style.dart';
+import 'package:mapallo/model/post.dart';
+import 'package:mapallo/value/style.dart';
 
 class PostView extends StatelessWidget {
   final Post _post;

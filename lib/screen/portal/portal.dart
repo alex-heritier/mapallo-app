@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mapallo/screens/portal/portal_home.dart';
-import 'package:mapallo/screens/portal/portal_notifications.dart';
-import 'package:mapallo/screens/portal/portal_search.dart';
-import 'package:mapallo/screens/portal/portal_settings.dart';
-import 'package:mapallo/screens/portal/portal_upload.dart';
-import 'package:mapallo/values/style.dart';
+import 'package:mapallo/screen/portal/portal_home.dart';
+import 'package:mapallo/screen/portal/portal_notifications.dart';
+import 'package:mapallo/screen/portal/portal_search.dart';
+import 'package:mapallo/screen/portal/portal_settings.dart';
+import 'package:mapallo/screen/portal/portal_upload.dart';
+import 'package:mapallo/value/style.dart';
 
 class Portal extends StatefulWidget {
   Portal({Key key})

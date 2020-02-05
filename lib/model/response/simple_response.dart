@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mapallo/models/responses/base_response.dart';
+import 'package:mapallo/model/response/base_response.dart';
 
 part 'simple_response.g.dart';
 
