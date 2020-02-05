@@ -32,7 +32,9 @@ class _LocationPickerState extends State<LocationPicker> {
       Navigator.of(ctx).pop(latLng);
     else if (widget.onSelectCallback != null)
       widget.onSelectCallback(
-          LocationPickerController(_clearMarkers, _addMarker), latLng);
+        LocationPickerController(_clearMarkers, _addMarker),
+        latLng,
+      );
   }
 
   @override
@@ -48,7 +50,7 @@ class _LocationPickerState extends State<LocationPicker> {
       onTap: (latLng) => _onLocationSelect(context, latLng),
     );
 
-    return Scaffold(body: body);
+    return body;
   }
 }
 

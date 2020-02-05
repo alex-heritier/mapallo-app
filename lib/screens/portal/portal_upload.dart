@@ -27,9 +27,10 @@ class _PortalUploadState extends State<PortalUpload> {
     print(latLng);
     lpc.clearMarkers();
     lpc.addMarker(Marker(
-        position: latLng,
-        icon: BitmapDescriptor.defaultMarker,
-        markerId: MarkerId("Hello World")));
+      position: latLng,
+      icon: BitmapDescriptor.defaultMarker,
+      markerId: MarkerId("lat-lng"),
+    ));
     _postLatLng = latLng;
   }
 
@@ -140,18 +141,17 @@ class _PortalUploadState extends State<PortalUpload> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: formChildren)));
 
-    final topSection = Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[imagePicker, Expanded(child: form)]);
+    final topSection = Padding(
+        padding: EdgeInsets.symmetric(horizontal: 14),
+        child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[imagePicker, Expanded(child: form)]));
 
-    final locationPicker = SizedBox(
-      child: LocationPicker(onSelectCallback: _onLocationSelect),
-      height: 400,
-      width: 400,
-    );
+    final locationPicker =
+        Flexible(child: LocationPicker(onSelectCallback: _onLocationSelect));
 
     final createButton = Padding(
-        padding: EdgeInsets.only(top: 20),
+        padding: EdgeInsets.all(20),
         child: _isUploading
             ? CircularProgressIndicator()
             : RaisedButton(
@@ -159,10 +159,8 @@ class _PortalUploadState extends State<PortalUpload> {
                 onPressed: _submit,
                 color: Style.PRIMARY));
 
-    return Padding(
-      padding: EdgeInsets.all(14),
-      child: Column(
-          children: <Widget>[title, topSection, locationPicker, createButton]),
+    return Column(
+      children: <Widget>[title, topSection, locationPicker, createButton],
     );
   }
 }

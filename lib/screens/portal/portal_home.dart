@@ -58,17 +58,7 @@ class _PortalHomeState extends State<PortalHome> {
       markers: _markers,
       onMapCreated: (GoogleMapController controller) {
         _controller.complete(controller);
-      },
-      onTap: (LatLng latLng) {
-        showDialog(
-            context: context,
-            builder: (BuildContext ctx) {
-              return Dialog(
-                  child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Text('You clicked at ${latLng.toString()}!')));
-            });
-      },
+      }
     );
 
     return Scaffold(body: body);
