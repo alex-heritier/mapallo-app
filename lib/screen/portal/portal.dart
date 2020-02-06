@@ -5,7 +5,7 @@ import 'package:mapallo/screen/portal/portal_notifications.dart';
 import 'package:mapallo/screen/portal/portal_search.dart';
 import 'package:mapallo/screen/portal/portal_settings.dart';
 import 'package:mapallo/screen/portal/portal_upload.dart';
-import 'package:mapallo/value/style.dart';
+import 'package:mapallo/value/style_value.dart';
 
 class Portal extends StatefulWidget {
   Portal({Key key})
@@ -57,8 +57,8 @@ class _PortalState extends State<Portal> {
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentMenuIndex,
           items: _getMenuItems(),
-          unselectedItemColor: Style.GREY,
-          selectedItemColor: Style.SECONDARY,
+          unselectedItemColor: StyleValue.GREY,
+          selectedItemColor: StyleValue.SECONDARY,
           onTap: (index) {
             setState(() {
               _currentMenuIndex = index;

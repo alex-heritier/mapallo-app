@@ -4,14 +4,15 @@ import 'package:mapallo/network/server_handler.dart';
 import 'package:mapallo/screen/portal/portal.dart';
 import 'package:mapallo/screen/signup/signup.dart';
 import 'package:mapallo/util/session_data.dart';
-import 'package:mapallo/value/style.dart';
+import 'package:mapallo/value/asset_value.dart';
+import 'package:mapallo/value/style_value.dart';
 
 class Login extends StatefulWidget {
+  final String title;
+
   Login({Key key})
       : title = "Login",
         super(key: key);
-
-  final String title;
 
   @override
   _LoginState createState() => _LoginState();
@@ -95,21 +96,21 @@ class _LoginState extends State<Login> {
     final loginButton = _isLoggingIn
         ? CircularProgressIndicator()
         : RaisedButton(
-            child: Text("Login", style: TextStyle(color: Style.WHITE)),
+            child: Text("Login", style: TextStyle(color: StyleValue.WHITE)),
             onPressed: _submit,
-            color: Style.PRIMARY);
+            color: StyleValue.PRIMARY);
 
     final registerButton = RaisedButton(
-        child: Text("New User?", style: TextStyle(color: Style.BLACK)),
+        child: Text("New User?", style: TextStyle(color: StyleValue.BLACK)),
         onPressed: _isLoggingIn ? null : _register,
-        color: Style.WHITE);
+        color: StyleValue.WHITE);
 
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: <Widget>[
             Padding(
-              child: Image.asset('assets/img/mapallo_banner.png'),
+              child: Image.asset(AssetValue.IMG_BANNER),
               padding: EdgeInsets.all(40),
             ),
             Padding(

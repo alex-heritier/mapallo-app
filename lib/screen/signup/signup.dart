@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mapallo/network/server_handler.dart';
 import 'package:mapallo/util/session_data.dart';
-import 'package:mapallo/value/style.dart';
+import 'package:mapallo/value/style_value.dart';
 
 class Signup extends StatefulWidget {
   Signup({Key key})
@@ -77,9 +77,9 @@ class _SignupState extends State<Signup> {
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
             ),
             RaisedButton(
-                child: Text("Sign Up", style: TextStyle(color: Style.WHITE)),
+                child: Text("Sign Up", style: TextStyle(color: StyleValue.WHITE)),
                 onPressed: _submit,
-                color: Style.PRIMARY),
+                color: StyleValue.PRIMARY),
           ],
         ),
       ),

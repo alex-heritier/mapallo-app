@@ -6,7 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mapallo/network/server_handler.dart';
 import 'package:mapallo/widget/location_picker.dart';
-import 'package:mapallo/value/style.dart';
+import 'package:mapallo/value/style_value.dart';
 
 class PortalUpload extends StatefulWidget {
   @override
@@ -107,7 +107,7 @@ class _PortalUploadState extends State<PortalUpload> {
         alignment: Alignment.centerLeft,
         child: Text("Create a Post",
             style: TextStyle(
-                color: Style.PRIMARY,
+                color: StyleValue.PRIMARY,
                 fontSize: 24,
                 fontWeight: FontWeight.bold)));
 
@@ -155,9 +155,9 @@ class _PortalUploadState extends State<PortalUpload> {
         child: _isUploading
             ? CircularProgressIndicator()
             : RaisedButton(
-                child: Text("Post", style: TextStyle(color: Style.WHITE)),
+                child: Text("Post", style: TextStyle(color: StyleValue.WHITE)),
                 onPressed: _submit,
-                color: Style.PRIMARY));
+                color: StyleValue.PRIMARY));
 
     return Column(
       children: <Widget>[title, topSection, locationPicker, createButton],

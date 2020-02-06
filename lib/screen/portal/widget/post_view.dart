@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mapallo/model/post.dart';
-import 'package:mapallo/value/style.dart';
+import 'package:mapallo/value/style_value.dart';
 
 class PostView extends StatelessWidget {
   final Post _post;
@@ -13,10 +13,10 @@ class PostView extends StatelessWidget {
     print(_post);
 
     final title = Text(_post.title,
-        style: TextStyle(color: Style.PRIMARY, fontWeight: FontWeight.bold));
-    final text = Text(_post.text, style: TextStyle(color: Style.BLACK));
+        style: TextStyle(color: StyleValue.PRIMARY, fontWeight: FontWeight.bold));
+    final text = Text(_post.text, style: TextStyle(color: StyleValue.BLACK));
     final author = Text('By @${_post.user.username}',
-        style: TextStyle(color: Style.GREY, fontSize: 12));
+        style: TextStyle(color: StyleValue.GREY, fontSize: 12));
 
     final body = Column(
         crossAxisAlignment: CrossAxisAlignment.start,

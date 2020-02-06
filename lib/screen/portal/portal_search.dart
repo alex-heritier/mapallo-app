@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mapallo/model/post.dart';
 import 'package:mapallo/network/server_handler.dart';
 import 'package:mapallo/screen/portal/widget/post_view.dart';
-import 'package:mapallo/value/style.dart';
+import 'package:mapallo/value/style_value.dart';
 
 class PortalSearch extends StatefulWidget {
   @override
@@ -31,7 +31,7 @@ class _PortalSearchState extends State<PortalSearch> {
 
   void _loadPosts() async {
     final response = await ServerHandler.getPosts();
-    if (response.reqStat == 100)
+    if (response.reqStat == 100 && mounted)
       setState(() => _posts = response.posts);
     else
       print("Error loading posts");
@@ -55,7 +55,7 @@ class _PortalSearchState extends State<PortalSearch> {
               return Padding(
                   padding: EdgeInsets.symmetric(horizontal: 2, vertical: 6),
                   child: RaisedButton(
-                    color: Style.WHITE,
+                    color: StyleValue.WHITE,
                     shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(60),
                         side: BorderSide(color: Colors.grey.withAlpha(0x88))),
@@ -65,7 +65,7 @@ class _PortalSearchState extends State<PortalSearch> {
                         children: <Widget>[
                           icon == null ? Container() : Icon(icon, size: 20),
                           icon == null ? Container() : SizedBox(width: 4),
-                          Text(text, style: TextStyle(color: Style.BLACK))
+                          Text(text, style: TextStyle(color: StyleValue.BLACK))
                         ]),
                     onPressed: () => _onFilterSelected(text),
                   ));
