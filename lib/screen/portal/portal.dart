@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mapallo/screen/portal/portal_home.dart';
-import 'package:mapallo/screen/portal/portal_notifications.dart';
+import 'package:mapallo/screen/portal/portal_notification.dart';
 import 'package:mapallo/screen/portal/portal_search.dart';
-import 'package:mapallo/screen/portal/portal_settings.dart';
+import 'package:mapallo/screen/portal/portal_setting.dart';
 import 'package:mapallo/screen/portal/portal_upload.dart';
 import 'package:mapallo/value/style_value.dart';
 
@@ -26,12 +26,12 @@ class _PortalState extends State<Portal> {
     {
       'name': 'Alerts',
       'icon': Icon(Icons.notifications),
-      'widget': PortalNotifications()
+      'widget': PortalNotification()
     },
     {
       'name': 'Settings',
       'icon': Icon(Icons.settings),
-      'widget': PortalSettings()
+      'widget': PortalSetting()
     },
   ];
 
