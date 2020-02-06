@@ -53,22 +53,26 @@ class _PortalState extends State<Portal> {
 
   @override
   Widget build(BuildContext context) {
+    final nav = BottomNavigationBar(
+      currentIndex: _currentMenuIndex,
+      items: _getMenuItems(),
+      unselectedItemColor: StyleValue.GREY,
+      selectedItemColor: StyleValue.SECONDARY,
+      onTap: (index) {
+        setState(() {
+          _currentMenuIndex = index;
+          _activeScreen = menuItems[index]['widget'];
+        });
+      },
+    );
+
+    final body = Container(
+      child: _activeScreen ?? Center(child: CircularProgressIndicator()),
+    );
+
     return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentMenuIndex,
-          items: _getMenuItems(),
-          unselectedItemColor: StyleValue.GREY,
-          selectedItemColor: StyleValue.SECONDARY,
-          onTap: (index) {
-            setState(() {
-              _currentMenuIndex = index;
-              _activeScreen = menuItems[index]['widget'];
-            });
-          },
-        ),
-        body: SafeArea(
-            child: Container(
-                child: _activeScreen ??
-                    Center(child: CircularProgressIndicator()))));
+      bottomNavigationBar: nav,
+      body: body,
+    );
   }
 }

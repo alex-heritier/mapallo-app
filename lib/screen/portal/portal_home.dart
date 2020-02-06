@@ -28,7 +28,7 @@ class _PortalHomeState extends State<PortalHome> {
 
   void _loadPins() async {
     final response = await ServerHandler.getPins();
-    if (response.reqStat == 100)
+    if (response.status == 100 && mounted)
       _setMarkers(response.pins);
     else
       print("Failed to load pins");
@@ -55,6 +55,7 @@ class _PortalHomeState extends State<PortalHome> {
       mapType: MapType.normal,
       zoomGesturesEnabled: true,
       initialCameraPosition: _kGooglePlex,
+      mapToolbarEnabled: false,
       markers: _markers,
       onMapCreated: (GoogleMapController controller) {
         _controller.complete(controller);

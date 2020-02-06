@@ -31,7 +31,7 @@ class _PortalSearchState extends State<PortalSearch> {
 
   void _loadPosts() async {
     final response = await ServerHandler.getPosts();
-    if (response.reqStat == 100 && mounted)
+    if (response.status == 100 && mounted)
       setState(() => _posts = response.posts);
     else
       print("Error loading posts");
@@ -43,35 +43,33 @@ class _PortalSearchState extends State<PortalSearch> {
 
   @override
   Widget build(BuildContext context) {
-    final filters = SizedBox(
-        height: 40,
-        child: Center(
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: _filters.map((Map<String, dynamic> filter) {
-              final IconData icon = filter['icon'];
-              final String text = filter['text'];
+    final filters = SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: _filters.map((Map<String, dynamic> filter) {
+          final IconData icon = filter['icon'];
+          final String text = filter['text'];
 
-              return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 2, vertical: 6),
-                  child: RaisedButton(
-                    color: StyleValue.WHITE,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(60),
-                        side: BorderSide(color: Colors.grey.withAlpha(0x88))),
-                    elevation: 0,
-                    child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          icon == null ? Container() : Icon(icon, size: 20),
-                          icon == null ? Container() : SizedBox(width: 4),
-                          Text(text, style: TextStyle(color: StyleValue.BLACK))
-                        ]),
-                    onPressed: () => _onFilterSelected(text),
-                  ));
-            }).toList(),
-          ),
-        ));
+          return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 2, vertical: 6),
+              child: RaisedButton(
+                color: StyleValue.WHITE,
+                shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(60),
+                    side: BorderSide(color: Colors.grey.withAlpha(0x88))),
+                elevation: 0,
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      icon == null ? Container() : Icon(icon, size: 20),
+                      icon == null ? Container() : SizedBox(width: 4),
+                      Text(text, style: TextStyle(color: StyleValue.BLACK))
+                    ]),
+                onPressed: () => _onFilterSelected(text),
+              ));
+        }).toList(),
+      ),
+    );
 
     final posts = _posts.length == 0
         ? Center(child: CircularProgressIndicator())
@@ -82,11 +80,10 @@ class _PortalSearchState extends State<PortalSearch> {
           ));
 
     final body = Column(children: <Widget>[
-      SizedBox(height: 30),
       filters,
       posts,
     ]);
 
-    return body;
+    return SafeArea(child: body);
   }
 }

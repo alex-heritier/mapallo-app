@@ -42,7 +42,7 @@ class _LoginState extends State<Login> {
 
     setState(() => _isLoggingIn = false);
 
-    int reqstat = response.reqStat;
+    int reqstat = response.status;
     if (reqstat == 100) {
       SessionData.token = response.token;
       SessionData.user = response.user;

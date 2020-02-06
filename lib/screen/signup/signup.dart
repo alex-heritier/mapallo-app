@@ -25,7 +25,7 @@ class _SignupState extends State<Signup> {
     final response = await ServerHandler.signup(_username, _password);
     print(response);
 
-    int reqstat = response.reqStat;
+    int reqstat = response.status;
     if (reqstat == 100) {
       SessionData.token = response.token;
       SessionData.user = response.user;

@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mapallo/screen/login/login.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(Mapallo());
 
-class MyApp extends StatelessWidget {
+class Mapallo extends StatelessWidget {
+  Mapallo() {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Mapallo',
       theme: ThemeData(
         // This is the theme of your application.

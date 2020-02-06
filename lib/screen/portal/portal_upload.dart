@@ -57,7 +57,7 @@ class _PortalUploadState extends State<PortalUpload> {
 
     final response =
         await ServerHandler.createPost(title, text, image64, latLng);
-    if (response.reqStat == 100) {
+    if (response.status == 100) {
       showDialog<void>(
         context: context,
         barrierDismissible: false, // user must tap button!
@@ -159,8 +159,15 @@ class _PortalUploadState extends State<PortalUpload> {
                 onPressed: _submit,
                 color: StyleValue.PRIMARY));
 
-    return Column(
-      children: <Widget>[title, topSection, locationPicker, createButton],
+    return SafeArea(
+      child: Column(
+        children: <Widget>[
+          title,
+          topSection,
+          locationPicker,
+          createButton,
+        ],
+      ),
     );
   }
 }
